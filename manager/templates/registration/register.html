@@ -1,0 +1,7 @@
+<h1>Создание аккаунта</h1>
+<p>Пожалуйста, заполните следующую форму</p>
+<form method="post">
+  {{ user_form.as_p }}
+  {% csrf_token %}
+  <p><input type="submit" value="Создать мой аккаунт"></p>
+</form>

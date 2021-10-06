@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Таблица с дисками
+{% endblock %}
+
+{% block content %}
+
+    <form method='post' action='/'>
+      <table border=1>
+        <thead>
+	  <th>Name</th>
+	  <th>Size/Gb</th>
+	  <th>Mount point</th>
+	  <th>Mount state</th>
+	  <th>Format</th>
+        </thead>
+	{{ formset.management_form }}
+	{% for form in formset.forms %}
+        <tbody>
+          <tr>
+            {% for field in form %}
+               <td>{{ field }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+
+    <input type='submit' value='Change'>
+
+	{% for dict in formset.errors %}
+	    {% for error in dict.values %}
+	        {{ error }}
+	    {% endfor %}
+	{% endfor %}
+        
+    {% csrf_token %}
+     
+    </form>
+
+{% endblock %}
