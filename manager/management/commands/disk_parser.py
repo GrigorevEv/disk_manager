@@ -2,6 +2,7 @@ from subprocess import run, PIPE
 from typing import Union
 from django.core.management import BaseCommand
 from manager.models import Disk
+from conf.settings import SUDO_STR
 
 
 def disk_parser(disks: str) -> Union[dict, str]:
@@ -9,7 +10,7 @@ def disk_parser(disks: str) -> Union[dict, str]:
     Парсит диски в системе по названию, очищает данные и
     сохраняет их в словарь.
     """
-    cmd = ['lsblk -o NAME,SIZE,MOUNTPOINT']
+    cmd = SUDO_STR + 'lsblk -o NAME,SIZE,MOUNTPOINT'
     output = run(cmd, shell=True, stdout=PIPE)
 
     output_string = output.stdout.decode('Utf-8')
