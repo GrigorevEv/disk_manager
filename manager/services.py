@@ -8,10 +8,8 @@ class DiskManager:
     Класс для выполнения операций форматирования, монтирования
     и отмонтирования дисков.
     """
-
     def __init__(self, instance):
         self.instance = instance
-        
 
     def formats_disk(self):
         """Метод форматирования диска."""
@@ -25,7 +23,6 @@ class DiskManager:
                 run(cmd, shell=True)
             print(f'Диск {self.instance.name} успешно отформатирован')
 
-
     def mounts_or_umounts_disk(self):
         """Метод монтирования и отмонтирования диска."""
         if self.instance.mount_state == 'mount':
@@ -33,8 +30,12 @@ class DiskManager:
         else:
             DiskManager.__disk_umount(self.instance)
 
-
     def __disk_mount(inst):
+        """
+        Монтирует диск и отмонтирует предыдущий.
+        При этом создает новую папку если данной точки
+        монтирования ранее не существовало
+        """
         previous_mounted = Disk.objects.get(id=inst.id)
         DiskManager.__disk_umount(previous_mounted)
 
@@ -43,11 +44,9 @@ class DiskManager:
 
         run(cmd, shell=True)
         print(f'Диск {inst.name} успешно монтирован на {inst.mount_point}')
-                
 
     def __disk_umount(inst):
+        """Отмонтирует диск"""
         cmd = SUDO_STR + f'umount {inst.mount_point}'
         run(cmd, shell=True)
         print(f'Диск {inst.name} успешно отмонтирован от {inst.mount_point}')
-
-

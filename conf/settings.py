@@ -1,23 +1,25 @@
 from pathlib import Path
+from decouple import config, Csv
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
     
-SECRET_KEY = 'django-insecure-)tckajj(_j_cosu_e7ld=^8##r6ucu$#(yps*tz8#n7azu(h^&'
+SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 INSTALLED_APPS = [
+    # Local
+    'manager',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # Local
-    'manager',
 ]
 
 MIDDLEWARE = [
@@ -88,7 +90,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SUDO_PASSWORD = '1234;lkj'
+SUDO_PASSWORD = config('SUDO_PASSWORD')
 SUDO_STR = f'echo \"{SUDO_PASSWORD}\" | sudo -S '
 
 LOGIN_REDIRECT_URL = 'disk_manager'

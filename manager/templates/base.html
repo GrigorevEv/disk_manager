@@ -6,11 +6,10 @@
 </head>
 <body>
   {% if request.user.is_authenticated %}
-    Привет {{ request.user.first_name }},
+    Привет {{ request.user.username }},
     <a href="{% url "logout" %}">отлогиниться</a>
   {% else %}
     <a href="{% url "login" %}">Залогиниться</a> или
-    <a href="{% url "register" %}">зарегистрироваться</a>
   {% endif %}
 {% block content %}{% endblock %}
 </body>

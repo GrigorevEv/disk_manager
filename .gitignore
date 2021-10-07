@@ -1,11 +1,8 @@
 venv/
-.env
 bin/
-gunicorn_config.py
 **/__pycache__
 staticfiles/
 media/
 pg_data/
 __pycache__/
 .idea/
-db.sqlite3
